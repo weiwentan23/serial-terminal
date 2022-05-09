@@ -1,0 +1,28 @@
+{
+  "icons": [
+    {
+      "src": "./icon_512x512.a4db704b2dadc141d9370ebfc245da0a.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon_192x192.eb6d8e011dcda6191d1b7526c77baf0f.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon_1024x1024.1082ec20dfabc018340417fcedde1ba1.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "name": "Serial Terminal",
+  "short_name": "Serial Terminal",
+  "orientation": "portrait",
+  "display": "standalone",
+  "start_url": "./?source=pwa",
+  "scope": "./"
+}
