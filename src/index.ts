@@ -57,6 +57,8 @@ let portCounter = 1;
 let port: SerialPort | SerialPortPolyfill | undefined;
 let reader: ReadableStreamDefaultReader | undefined;
 
+let hexString: string;
+
 const urlParams = new URLSearchParams(window.location.search);
 const usePolyfill = urlParams.has('polyfill');
 
@@ -345,10 +347,15 @@ document.addEventListener('DOMContentLoaded', async () => {
       connectToPort();
     }
   });
-
+  var byteArray = new Uint8Array(1);
+  byteArray[0] = 46;
   writeButton = document.getElementById('write') as HTMLButtonElement;
   writeButton.addEventListener('click', () => {
     term.writeln('test');
+
+    const writer = port.writable.getWriter();
+    writer.write(byte[0]);
+    writer.releaseLock();
   });
 
   baudRateSelector = document.getElementById('baudrate') as HTMLSelectElement;
