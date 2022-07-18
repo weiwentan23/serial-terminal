@@ -337,6 +337,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   connectButton = document.getElementById('connect') as HTMLButtonElement;
   connectButton.addEventListener('click', () => {
     if (port) {
+      term.writeln('testtest')
       disconnectFromPort();
     } else {
       connectToPort();
