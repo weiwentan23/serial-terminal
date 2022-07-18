@@ -345,7 +345,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   connectButton = document.getElementById('test') as HTMLButtonElement;
   connectButton.addEventListener('click', () => {
-    if (port) {
+    if (port?.writable !== null) {
         term.writeln("test");
         var hexString = "2E";
         if (hexString.length % 2 !== 0) {
@@ -357,7 +357,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             byteArray[i] = parseInt(hexString.substr(i*2, 2), 16);
         }
         const writer = port.writable.getWriter();
-        writer.write(hexString);
+        writer.write(hexString as string);
         writer.releaseLock();
     } else {
         term.writeln("test error");
