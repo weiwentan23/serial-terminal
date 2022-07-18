@@ -205,6 +205,7 @@ function getSelectedBaudRate(): number {
  */
 function markDisconnected(): void {
   term.writeln('<DISCONNECTED>');
+  term.writeln('<TESTING>');
   portSelector.disabled = false;
   connectButton.textContent = 'Connect';
   connectButton.disabled = false;
