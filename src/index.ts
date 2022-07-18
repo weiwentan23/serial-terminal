@@ -345,23 +345,24 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   connectButton = document.getElementById('test') as HTMLButtonElement;
   connectButton.addEventListener('click', () => {
-    if (port?.writable !== null) {
-        term.writeln('test');
-        var hexString = "2E";
-        if (hexString.length % 2 !== 0) {
-            throw "Must have an even number of hex digits to convert to bytes";
-        }
-        var numBytes = hexString.length / 2;
-        var byteArray = new Uint8Array(numBytes);
-        for (var i=0; i<numBytes; i++) {
-            byteArray[i] = parseInt(hexString.substr(i*2, 2), 16);
-        }
+    term.writeln('test');
+//     if (port?.writable !== null) {
+//         term.writeln('test');
+//         var hexString = "2E";
+//         if (hexString.length % 2 !== 0) {
+//             throw "Must have an even number of hex digits to convert to bytes";
+//         }
+//         var numBytes = hexString.length / 2;
+//         var byteArray = new Uint8Array(numBytes);
+//         for (var i=0; i<numBytes; i++) {
+//             byteArray[i] = parseInt(hexString.substr(i*2, 2), 16);
+//         }
 //         const writer = port.writable.getWriter();
 //         writer.write(hexString as string);
 //         writer.releaseLock();
-    } else {
-        term.writeln('test error');
-    }
+//     } else {
+//         term.writeln('test error');
+//     }
   });
 
   baudRateSelector = document.getElementById('baudrate') as HTMLSelectElement;
