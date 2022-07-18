@@ -343,6 +343,26 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
+  connectButton = document.getElementById('test') as HTMLButtonElement;
+  connectButton.addEventListener('click', () => {
+    if (port) {
+        term.writeln("test");
+        var hexString = "2E";
+        if (hexString.length % 2 !== 0) {
+            throw "Must have an even number of hex digits to convert to bytes";
+        }
+        var numBytes = hexString.length / 2;
+        var byteArray = new Uint8Array(numBytes);
+        for (var i=0; i<numBytes; i++) {
+            byteArray[i] = parseInt(hexString.substr(i*2, 2), 16);
+        }
+        writer.write(hexString);
+        writer.releaseLock();
+    } else {
+        term.writeln("test error");
+    }
+  });
+
   baudRateSelector = document.getElementById('baudrate') as HTMLSelectElement;
   baudRateSelector.addEventListener('input', () => {
     if (baudRateSelector.value == 'custom') {
