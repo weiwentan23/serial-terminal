@@ -345,8 +345,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
-  connectButton = document.getElementById('test') as HTMLButtonElement;
-  connectButton.addEventListener('click', () => {
+  writeButton = document.getElementById('write') as HTMLButtonElement;
+  writeButton.addEventListener('click', () => {
     term.writeln('test');
   });
 
