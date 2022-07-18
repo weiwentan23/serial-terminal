@@ -43,6 +43,7 @@ if ('serviceWorker' in navigator) {
 
 let portSelector: HTMLSelectElement;
 let connectButton: HTMLButtonElement;
+let writeButton: HTMLButtonElement;
 let baudRateSelector: HTMLSelectElement;
 let customBaudRateInput: HTMLInputElement;
 let dataBitsSelector: HTMLSelectElement;
