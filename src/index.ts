@@ -77,7 +77,7 @@ term.onData((data) => {
   }
 
   const writer = port.writable.getWriter();
-  term.write("testing")
+  term.write('testing');
   if (flushOnEnterCheckbox.checked) {
     toFlush += data;
     if (data === '\r') {
@@ -346,7 +346,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   connectButton = document.getElementById('test') as HTMLButtonElement;
   connectButton.addEventListener('click', () => {
     if (port?.writable !== null) {
-        term.writeln("test");
+        term.writeln('test');
         var hexString = "2E";
         if (hexString.length % 2 !== 0) {
             throw "Must have an even number of hex digits to convert to bytes";
@@ -360,7 +360,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 //         writer.write(hexString as string);
 //         writer.releaseLock();
     } else {
-        term.writeln("test error");
+        term.writeln('test error');
     }
   });
 
