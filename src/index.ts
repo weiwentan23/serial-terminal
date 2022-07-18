@@ -356,6 +356,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         for (var i=0; i<numBytes; i++) {
             byteArray[i] = parseInt(hexString.substr(i*2, 2), 16);
         }
+        const writer = port.writable.getWriter();
         writer.write(hexString);
         writer.releaseLock();
     } else {
