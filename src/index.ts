@@ -77,7 +77,7 @@ term.onData((data) => {
   }
 
   const writer = port.writable.getWriter();
-
+  term.write("testing")
   if (flushOnEnterCheckbox.checked) {
     toFlush += data;
     if (data === '\r') {
@@ -356,9 +356,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         for (var i=0; i<numBytes; i++) {
             byteArray[i] = parseInt(hexString.substr(i*2, 2), 16);
         }
-        const writer = port.writable.getWriter();
-        writer.write(hexString as string);
-        writer.releaseLock();
+//         const writer = port.writable.getWriter();
+//         writer.write(hexString as string);
+//         writer.releaseLock();
     } else {
         term.writeln("test error");
     }
