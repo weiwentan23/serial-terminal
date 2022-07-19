@@ -44,6 +44,7 @@ if ('serviceWorker' in navigator) {
 let portSelector: HTMLSelectElement;
 let connectButton: HTMLButtonElement;
 let writeButton: HTMLButtonElement;
+let writeInput: HTMLInputElement;
 let baudRateSelector: HTMLSelectElement;
 let customBaudRateInput: HTMLInputElement;
 let dataBitsSelector: HTMLSelectElement;
@@ -275,7 +276,10 @@ async function connectToPort(): Promise<void> {
         const {value, done} = await reader.read();
         if (value) {
           await new Promise<void>((resolve) => {
+            console.log(value);
+            console.log(value.keys());
             term.write(value, resolve);
+            term.write(JSON.stringify(value));
           });
         }
         if (done) {
@@ -347,14 +351,27 @@ document.addEventListener('DOMContentLoaded', async () => {
       connectToPort();
     }
   });
-  var byteArray = new Uint8Array(1);
-  byteArray[0] = 46;
+  var byteArray2 = new Uint8Array(1);
+  byteArray2[0] = 114;//7 for streaming
   writeButton = document.getElementById('write') as HTMLButtonElement;
   writeButton.addEventListener('click', () => {
-    term.writeln('test');
-
+    writeInput = document.getElementById('dataToWrite') as HTMLInputElement
+    var hexString = writeInput.value;
+    term.writeln(hexString);
+    if (hexString.length % 2 !== 0) {
+        throw "Must have an even number of hex digits to convert to bytes";
+    }
+    var numBytes = hexString.length / 2;
+    var byteArray = new Uint8Array(numBytes);
+    for (var i=0; i<numBytes; i++) {
+        byteArray[i] = parseInt(hexString.substr(i*2, 2), 16);
+    }
+    if (port?.writable == null) {
+        console.warn(`unable to find writable port`);
+        return;
+    }
     const writer = port.writable.getWriter();
-    writer.write(byte[0]);
+    writer.write(byteArray);
     writer.releaseLock();
   });
 
