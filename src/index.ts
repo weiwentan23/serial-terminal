@@ -44,7 +44,7 @@ if ('serviceWorker' in navigator) {
 let portSelector: HTMLSelectElement;
 let connectButton: HTMLButtonElement;
 let writeButton: HTMLButtonElement;
-let writeInput: HTMLInputElement;
+let bytesToWriteInput: HTMLInputElement;
 let baudRateSelector: HTMLSelectElement;
 let customBaudRateInput: HTMLInputElement;
 let dataBitsSelector: HTMLSelectElement;
@@ -57,8 +57,6 @@ let flushOnEnterCheckbox: HTMLInputElement;
 let portCounter = 1;
 let port: SerialPort | SerialPortPolyfill | undefined;
 let reader: ReadableStreamDefaultReader | undefined;
-
-let hexString: string;
 
 const urlParams = new URLSearchParams(window.location.search);
 const usePolyfill = urlParams.has('polyfill');
@@ -81,7 +79,7 @@ term.onData((data) => {
   }
 
   const writer = port.writable.getWriter();
-  term.write('testing');
+
   if (flushOnEnterCheckbox.checked) {
     toFlush += data;
     if (data === '\r') {
@@ -209,7 +207,6 @@ function getSelectedBaudRate(): number {
  */
 function markDisconnected(): void {
   term.writeln('<DISCONNECTED>');
-  term.writeln('<TESTING>');
   portSelector.disabled = false;
   connectButton.textContent = 'Connect';
   connectButton.disabled = false;
@@ -276,8 +273,6 @@ async function connectToPort(): Promise<void> {
         const {value, done} = await reader.read();
         if (value) {
           await new Promise<void>((resolve) => {
-            console.log(value);
-            console.log(value.keys());
             term.write(value, resolve);
             term.write(JSON.stringify(value));
           });
@@ -345,30 +340,28 @@ document.addEventListener('DOMContentLoaded', async () => {
   connectButton = document.getElementById('connect') as HTMLButtonElement;
   connectButton.addEventListener('click', () => {
     if (port) {
-      term.writeln('testtest');
       disconnectFromPort();
     } else {
       connectToPort();
     }
   });
-  var byteArray2 = new Uint8Array(1);
-  byteArray2[0] = 114;//7 for streaming
+
   writeButton = document.getElementById('write') as HTMLButtonElement;
   writeButton.addEventListener('click', () => {
-    writeInput = document.getElementById('dataToWrite') as HTMLInputElement
-    var hexString = writeInput.value;
-    term.writeln(hexString);
+    bytesToWriteInput =
+    document.getElementById('bytesToWrite') as HTMLInputElement;
+    let hexString = bytesToWriteInput.value;
     if (hexString.length % 2 !== 0) {
-        throw "Must have an even number of hex digits to convert to bytes";
+       throw 'Must have an even number of hex digits to convert to bytes';
     }
-    var numBytes = hexString.length / 2;
-    var byteArray = new Uint8Array(numBytes);
+    let numBytes = hexString.length / 2;
+    let byteArray = new Uint8Array(numBytes);
     for (var i=0; i<numBytes; i++) {
-        byteArray[i] = parseInt(hexString.substr(i*2, 2), 16);
+       byteArray[i] = parseInt(hexString.substr(i*2, 2), 16);
     }
     if (port?.writable == null) {
-        console.warn(`unable to find writable port`);
-        return;
+       console.warn(`unable to find writable port`);
+       return;
     }
     const writer = port.writable.getWriter();
     writer.write(byteArray);
