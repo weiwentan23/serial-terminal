@@ -350,18 +350,18 @@ document.addEventListener('DOMContentLoaded', async () => {
   writeButton.addEventListener('click', () => {
     bytesToWriteInput =
     document.getElementById('bytesToWrite') as HTMLInputElement;
-    let hexString = bytesToWriteInput.value;
+    const hexString = bytesToWriteInput.value;
     if (hexString.length % 2 !== 0) {
-       throw 'Must have an even number of hex digits to convert to bytes';
+      console.warn('Must have an even number of hex digits to convert to bytes');
     }
-    let numBytes = hexString.length / 2;
-    let byteArray = new Uint8Array(numBytes);
-    for (var i=0; i<numBytes; i++) {
-       byteArray[i] = parseInt(hexString.substr(i*2, 2), 16);
+    const numBytes = hexString.length / 2;
+    const byteArray = new Uint8Array(numBytes);
+    for (let i=0; i<numBytes; i++) {
+      byteArray[i] = parseInt(hexString.substr(i*2, 2), 16);
     }
     if (port?.writable == null) {
-       console.warn(`unable to find writable port`);
-       return;
+      console.warn(`unable to find writable port`);
+      return;
     }
     const writer = port.writable.getWriter();
     writer.write(byteArray);
