@@ -352,7 +352,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('bytesToWrite') as HTMLInputElement;
     const hexString = bytesToWriteInput.value;
     if (hexString.length % 2 !== 0) {
-      console.warn('Must have an even number of hex digits to convert to bytes');
+      console.warn('Must have an even number of hex digits');
     }
     const numBytes = hexString.length / 2;
     const byteArray = new Uint8Array(numBytes);
