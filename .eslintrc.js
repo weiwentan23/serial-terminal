@@ -34,6 +34,8 @@ module.exports = {
         "indent": 0,
         "brace-style": 0,
         "require-jsdoc": 0,
+        "prefer-const": 0,
+        "arrow-parens": 0,
     },
     "env": {
         "browser": true,
