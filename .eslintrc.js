@@ -23,6 +23,9 @@ module.exports = {
     ],
     "rules": {
         "@typescript-eslint/no-explicit-any": "off",
+        "new-cap": 0,
+        "@typescript-eslint/no-unused-vars": "off",
+        "comma-spacing": 0,
     },
     "env": {
         "browser": true,

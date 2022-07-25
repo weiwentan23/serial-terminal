@@ -76,8 +76,8 @@ const GET_EXG_REG1_COMMAND = ConvertHexStringToByteArray('6300000A');
 const GET_EXG_REG2_COMMAND = ConvertHexStringToByteArray('6301000A');
 const SET_EXG_REG1_COMMAND = ConvertHexStringToByteArray('6100000A');
 const SET_EXG_REG2_COMMAND = ConvertHexStringToByteArray('6100010A');
-const SHIMMER3_DEFAULT_TEST_REG1 = new Uint8Array([0,163,16,69,69,0,0,0,2,1]);
-const SHIMMER3_DEFAULT_TEST_REG2 = new Uint8Array([0,163,16,69,69,0,0,0,2,1]);
+const SHIMMER3_DEFAULT_TEST_REG1 = new Uint8Array([0, 163, 16, 69, 69, 0, 0, 0, 2, 1]);
+const SHIMMER3_DEFAULT_TEST_REG2 = new Uint8Array([0, 163, 16, 69, 69, 0, 0, 0, 2, 1]);
 
 const urlParams = new URLSearchParams(window.location.search);
 const usePolyfill = urlParams.has('polyfill');
@@ -294,31 +294,31 @@ async function connectToPort(): Promise<void> {
     }, waitTime += 200);
 
     await setTimeout(function() {
-      if(firmwareIdentifier != 3 || hardwareVersion != 3){
+      if (firmwareIdentifier != 3 || hardwareVersion != 3){
         return;
       }
-      for(let i = 0; i < SET_EXG_REG1_COMMAND.length; i++){
+      for (let i = 0; i < SET_EXG_REG1_COMMAND.length; i++){
         writer.write(SET_EXG_REG1_COMMAND.subarray(i, i + 1));
       }
-      for(let i = 0; i < SHIMMER3_DEFAULT_TEST_REG1.length; i++){
+      for (let i = 0; i < SHIMMER3_DEFAULT_TEST_REG1.length; i++){
         writer.write(SHIMMER3_DEFAULT_TEST_REG1.subarray(i, i + 1));
       }
     }, waitTime += 200);
 
     setTimeout(function() {
-      if(firmwareIdentifier != 3 || hardwareVersion != 3){
+      if (firmwareIdentifier != 3 || hardwareVersion != 3){
         return;
       }
-      for(let i = 0; i < SET_EXG_REG2_COMMAND.length; i++){
+      for (let i = 0; i < SET_EXG_REG2_COMMAND.length; i++){
         writer.write(SET_EXG_REG2_COMMAND.subarray(i, i + 1));
       }
-      for(let i = 0; i < SHIMMER3_DEFAULT_TEST_REG2.length; i++){
+      for (let i = 0; i < SHIMMER3_DEFAULT_TEST_REG2.length; i++){
         writer.write(SHIMMER3_DEFAULT_TEST_REG2.subarray(i, i + 1));
       }
     }, waitTime += 200);
 
     setTimeout(function() {
-      if(firmwareIdentifier != 3 || hardwareVersion != 3){
+      if (firmwareIdentifier != 3 || hardwareVersion != 3){
         return;
       }
       chipId = 1;
@@ -326,7 +326,7 @@ async function connectToPort(): Promise<void> {
     }, waitTime += 200);
 
     setTimeout(function() {
-      if(firmwareIdentifier != 3 || hardwareVersion != 3){
+      if (firmwareIdentifier != 3 || hardwareVersion != 3){
         return;
       }
       chipId = 2;
